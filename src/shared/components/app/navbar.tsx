@@ -301,15 +301,6 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
                   </NavLink>
                 </li>
               )}
-              <li class="nav-item">
-                <a
-                  className="nav-link"
-                  title={i18n.t("support_lemmy")}
-                  href={donateLemmyUrl}
-                >
-                  <Icon icon="heart" classes="small" />
-                </a>
-              </li>
             </ul>
             <ul class="navbar-nav my-2">
               {this.canAdmin && (
@@ -324,6 +315,15 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
                   </NavLink>
                 </li>
               )}
+              <li className="nav-item">
+                <a
+                  className="nav-link"
+                  title={i18n.t("support_lemmy")}
+                  href={donateLemmyUrl}
+                >
+                  <Icon icon="heart" classes="small" />
+                </a>
+              </li>
             </ul>
             {!this.context.router.history.location.pathname.match(
               /^\/search/
