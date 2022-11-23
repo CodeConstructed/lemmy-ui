@@ -41,7 +41,7 @@ export class Footer extends Component<FooterProps, any> {
   get canAdmin(): boolean {
     return (
       UserService.Instance.myUserInfo &&
-      this.props.site_res.admins
+      this.props.site.admins
         .map(a => a.person.id)
         .includes(UserService.Instance.myUserInfo.local_user_view.person.id)
     );
