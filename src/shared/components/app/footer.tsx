@@ -2,8 +2,7 @@ import { Component } from "inferno";
 import { NavLink } from "inferno-router";
 import { GetSiteResponse } from "lemmy-js-client";
 import { i18n } from "../../i18next";
-import { docsUrl, joinLemmyUrl, repoUrl } from "../../utils";
-import { VERSION } from "../../version";
+import { UserService } from "../../services";
 
 interface FooterProps {
   site: GetSiteResponse;
@@ -19,11 +18,13 @@ export class Footer extends Component<FooterProps, any> {
       <nav class="container navbar navbar-expand-md navbar-light navbar-bg p-3">
         <div className="navbar-collapse">
           <ul class="navbar-nav ml-auto">
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/modlog">
-                {i18n.t("modlog")}
-              </NavLink>
-            </li>
+            {this.canAdmin && (
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/modlog">
+                  {i18n.t("modlog")}
+                </NavLink>
+              </li>
+            )}
             {this.props.site.site_view?.site.legal_information && (
               <li className="nav-item">
                 <NavLink className="nav-link" to="/legal">
@@ -34,6 +35,15 @@ export class Footer extends Component<FooterProps, any> {
           </ul>
         </div>
       </nav>
+    );
+  }
+
+  get canAdmin(): boolean {
+    return (
+      UserService.Instance.myUserInfo &&
+      this.props.site_res.admins
+        .map(a => a.person.id)
+        .includes(UserService.Instance.myUserInfo.local_user_view.person.id)
     );
   }
 }
