@@ -370,7 +370,7 @@ export class Home extends Component<any, HomeState> {
             <div class="card border-secondary mb-3">
               <div class="card-body">
                 {this.trendingCommunities()}
-                {this.createCommunityButton()}
+                {this.canCreateCommunity && this.createCommunityButton()}
                 {this.exploreCommunitiesButton()}
               </div>
             </div>
@@ -804,5 +804,20 @@ export class Home extends Component<any, HomeState> {
         toast(i18n.t("report_created"));
       }
     }
+  }
+
+  get canAdmin(): boolean {
+    return (
+      UserService.Instance.myUserInfo &&
+      this.state.siteRes.admins
+        .map(a => a.person.id)
+        .includes(UserService.Instance.myUserInfo.local_user_view.person.id)
+    );
+  }
+
+  get canCreateCommunity(): boolean {
+    let adminOnly =
+      this.state.siteRes.site_view?.site.community_creation_admin_only;
+    return !adminOnly || this.canAdmin;
   }
 }
