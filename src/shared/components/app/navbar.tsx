@@ -17,7 +17,6 @@ import { i18n } from "../../i18next";
 import { UserService, WebSocketService } from "../../services";
 import {
   authField,
-  donateLemmyUrl,
   getLanguages,
   isBrowser,
   notifyComment,
