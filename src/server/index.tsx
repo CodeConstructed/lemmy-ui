@@ -83,7 +83,7 @@ function buildThemeList(): string[] {
     //"materia",
     //"minty",
     //"solar",
-    "united",
+    //"united",
     //"cyborg",
     "darkly",
     //"darkly-red",
