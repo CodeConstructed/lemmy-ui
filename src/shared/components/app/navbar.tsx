@@ -550,8 +550,8 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
 
   handleLogoutClick(i: Navbar) {
     i.setState({ showDropdown: false, expanded: false });
-    UserService.Instance.logout();
     this.context.router.history.push(`/login`);
+    UserService.Instance.logout();
   }
 
   handleToggleDropdown(i: Navbar) {
