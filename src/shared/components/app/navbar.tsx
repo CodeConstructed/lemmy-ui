@@ -20,7 +20,6 @@ import { UserService, WebSocketService } from "../../services";
 import {
   amAdmin,
   canCreateCommunity,
-  donateLemmyUrl,
   isBrowser,
   myAuth,
   notifyComment,
@@ -279,15 +278,6 @@ export class Navbar extends Component<NavbarProps, NavbarState> {
                   </NavLink>
                 </li>
               )}
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  title={i18n.t("support_lemmy")}
-                  href={donateLemmyUrl}
-                >
-                  <Icon icon="heart" classes="small" />
-                </a>
-              </li>
             </ul>
             <ul className="navbar-nav my-2">
               {amAdmin() && (

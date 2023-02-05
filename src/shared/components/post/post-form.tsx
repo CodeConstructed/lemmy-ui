@@ -23,7 +23,6 @@ import { i18n } from "../../i18next";
 import { PostFormParams } from "../../interfaces";
 import { UserService, WebSocketService } from "../../services";
 import {
-  archiveTodayUrl,
   capitalizeFirstLetter,
   choicesConfig,
   communitySelectName,
@@ -31,23 +30,19 @@ import {
   debounce,
   fetchCommunities,
   getSiteMetadata,
-  ghostArchiveUrl,
   isBrowser,
-  isImage,
   myAuth,
   myFirstDiscussionLanguageId,
   pictrsDeleteToast,
-  relTags,
   setupTippy,
   toast,
   trendingFetchLimit,
   validTitle,
   validURL,
-  webArchiveUrl,
   wsClient,
   wsSubscribe,
 } from "../../utils";
-import { Icon, Spinner } from "../common/icon";
+import { Spinner } from "../common/icon";
 import { LanguageSelect } from "../common/language-select";
 import { MarkdownTextArea } from "../common/markdown-textarea";
 import { PostListings } from "./post-listings";
@@ -192,18 +187,7 @@ export class PostForm extends Component<PostFormProps, PostFormState> {
         />
         <form onSubmit={linkEvent(this, this.handlePostSubmit)}>
           <div className="form-group row">
-            <label className="col-sm-2 col-form-label" htmlFor="post-url">
-              {i18n.t("url")}
-            </label>
             <div className="col-sm-10">
-              <input
-                type="url"
-                id="post-url"
-                className="form-control"
-                value={this.state.form.url}
-                onInput={linkEvent(this, this.handlePostUrlChange)}
-                onPaste={linkEvent(this, this.handleImageUploadPaste)}
-              />
               {this.state.suggestedTitle && (
                 <div
                   className="mt-1 text-muted small font-weight-bold pointer"
@@ -213,59 +197,6 @@ export class PostForm extends Component<PostFormProps, PostFormState> {
                   {i18n.t("copy_suggested_title", { title: "" })}{" "}
                   {this.state.suggestedTitle}
                 </div>
-              )}
-              <form>
-                <label
-                  htmlFor="file-upload"
-                  className={`${
-                    UserService.Instance.myUserInfo && "pointer"
-                  } d-inline-block float-right text-muted font-weight-bold`}
-                  data-tippy-content={i18n.t("upload_image")}
-                >
-                  <Icon icon="image" classes="icon-inline" />
-                </label>
-                <input
-                  id="file-upload"
-                  type="file"
-                  accept="image/*,video/*"
-                  name="file"
-                  className="d-none"
-                  disabled={!UserService.Instance.myUserInfo}
-                  onChange={linkEvent(this, this.handleImageUpload)}
-                />
-              </form>
-              {url && validURL(url) && (
-                <div>
-                  <a
-                    href={`${webArchiveUrl}/save/${encodeURIComponent(url)}`}
-                    className="mr-2 d-inline-block float-right text-muted small font-weight-bold"
-                    rel={relTags}
-                  >
-                    archive.org {i18n.t("archive_link")}
-                  </a>
-                  <a
-                    href={`${ghostArchiveUrl}/search?term=${encodeURIComponent(
-                      url
-                    )}`}
-                    className="mr-2 d-inline-block float-right text-muted small font-weight-bold"
-                    rel={relTags}
-                  >
-                    ghostarchive.org {i18n.t("archive_link")}
-                  </a>
-                  <a
-                    href={`${archiveTodayUrl}/?run=1&url=${encodeURIComponent(
-                      url
-                    )}`}
-                    className="mr-2 d-inline-block float-right text-muted small font-weight-bold"
-                    rel={relTags}
-                  >
-                    archive.today {i18n.t("archive_link")}
-                  </a>
-                </div>
-              )}
-              {this.state.imageLoading && <Spinner />}
-              {url && isImage(url) && (
-                <img src={url} className="img-fluid" alt="" />
               )}
               {this.state.crossPosts && this.state.crossPosts.length > 0 && (
                 <>

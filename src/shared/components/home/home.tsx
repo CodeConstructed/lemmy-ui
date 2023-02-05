@@ -848,4 +848,19 @@ export class Home extends Component<any, HomeState> {
       }
     }
   }
+
+  get canAdmin(): boolean {
+    return (
+      UserService.Instance.myUserInfo &&
+      this.state.siteRes.admins
+        .map(a => a.person.id)
+        .includes(UserService.Instance.myUserInfo.local_user_view.person.id)
+    );
+  }
+
+  get canCreateCommunity(): boolean {
+    let adminOnly =
+      this.state.siteRes.site_view?.site.community_creation_admin_only;
+    return !adminOnly || this.canAdmin;
+  }
 }
