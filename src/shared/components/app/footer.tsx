@@ -23,10 +23,6 @@ export class Footer extends Component<FooterProps, any> {
                 <NavLink className="nav-link" to="/modlog">
                   {i18n.t("modlog")}
                 </NavLink>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/modlog">
-                  {i18n.t("modlog")}
-                </NavLink>
               </li>
             )}
             {this.props.site.site_view.local_site.legal_information && (
