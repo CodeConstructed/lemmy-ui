@@ -24,7 +24,7 @@ ARG COMMIT="unknown"
 # Set UI version
 RUN echo "export const VERSION = '${VERSION}';\nexport const COMMIT = '${COMMIT}';" > "src/shared/version.ts"
 
-RUN yarn install --production --ignore-scripts --prefer-offline
+RUN yarn 
 RUN yarn build:prod
 
 # Prune the image
