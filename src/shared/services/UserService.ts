@@ -48,6 +48,7 @@ export class UserService {
     IsomorphicCookie.remove("jwt"); // TODO is sometimes unreliable for some reason
     document.cookie = "jwt=; Max-Age=0; path=/; domain=" + location.host;
     console.log("Logged out.");
+    location.reload();
   }
 
   public get auth(): string {
