@@ -199,6 +199,7 @@ export class Login extends Component<any, State> {
           })
         );
         toast(i18n.t("logged_in"));
+        UserService.Instance.trackAnalytics('Signed In', {})
         this.props.history.push("/");
       } else if (op == UserOperation.PasswordReset) {
         toast(i18n.t("reset_password_mail_sent"));

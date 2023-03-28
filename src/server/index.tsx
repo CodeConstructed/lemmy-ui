@@ -12,6 +12,7 @@ import serialize from "serialize-javascript";
 import { App } from "../shared/components/app/app";
 import { SYMBOLS } from "../shared/components/common/symbols";
 import { httpBaseInternal } from "../shared/env";
+
 import {
   ILemmyConfig,
   InitialFetchRequest,
