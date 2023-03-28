@@ -3,7 +3,7 @@ import IsomorphicCookie from "isomorphic-cookie";
 import jwt_decode from "jwt-decode";
 import { LoginResponse, MyUserInfo } from "lemmy-js-client";
 import { BehaviorSubject, Subject } from "rxjs";
-import { isHttps, externalHost } from "../env";
+import { isHttps } from "../env";
 import { Analytics } from "@june-so/analytics-node";
 
 interface Claims {
@@ -27,7 +27,7 @@ export class UserService {
 
   private constructor() {
     const analyticsAPIKey = process.env["JUNO_APIKEY"] || "";
-    if ( !!externalHost && !!analyticsAPIKey ) {
+    if ( !!analyticsAPIKey ) {
       this.analytics = new Analytics(analyticsAPIKey);
     }
     if (this.auth) {
