@@ -28,11 +28,19 @@ const [hostname, port] = process.env["LEMMY_UI_HOST"]
 const extraThemesFolder =
   process.env["LEMMY_UI_EXTRA_THEMES_FOLDER"] || "./extra_themes";
 
-if (!process.env["LEMMY_UI_DISABLE_CSP"]) {
+if (!(process.env["LEMMY_UI_DISABLE_CSP"]?.toLowerCase?.() === 'true' || process.env["LEMMY_UI_DISABLE_CSP"] === true) ) {
   server.use(function (_req, res, next) {
     res.setHeader(
       "Content-Security-Policy",
       `default-src 'none'; connect-src *; img-src * data:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; form-action 'self'; base-uri 'self'`
+    );
+    next();
+  });
+} else {
+  server.use(function (_req, res, next) {
+    res.setHeader(
+      "Content-Security-Policy",
+      `default-src 'self'`
     );
     next();
   });
@@ -187,7 +195,9 @@ server.get("/*", async (req, res) => {
         <script>eruda.init();</script>
       </>
     );
-    const erudaStr = process.env["LEMMY_UI_DEBUG"] ? renderToString(eruda) : "";
+    const erudaStr = !!(process.env.LEMMY_UI_DEBUG?.toLowerCase?.() === 'true' || process.env.LEMMY_UI_DEBUG === true)
+      ? renderToString(eruda) 
+      : "";
     const root = renderToString(wrapper);
     const symbols = renderToString(SYMBOLS);
     const helmet = Helmet.renderStatic();
