@@ -501,6 +501,7 @@ export class Signup extends Component<any, State> {
             })
           );
           this.props.history.push("/communities");
+          location.reload();
         } else {
           if (data.verify_email_sent) {
             toast(i18n.t("verify_email_sent"));
