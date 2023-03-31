@@ -36,15 +36,15 @@ if (!!(process.env["LEMMY_UI_DISABLE_CSP"]?.toLowerCase?.() === 'true' || proces
     );
     next();
   });
-} else {
+} /*else {
   server.use(function (_req, res, next) {
     res.setHeader(
       "Content-Security-Policy",
-      `default-src 'self'`
+      `default-src 'self'; style-src 'self' 'unsafe-inline'`
     );
     next();
   });
-}
+}*/
 const customHtmlHeader = process.env["LEMMY_UI_CUSTOM_HTML_HEADER"] || "";
 
 server.use(express.json());
