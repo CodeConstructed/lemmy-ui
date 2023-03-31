@@ -26,7 +26,7 @@ export class UserService {
   protected analytics: Analytics | undefined;
 
   private constructor() {
-    const analyticsAPIKey = process.env.JUNO_APIKEY || "";
+    const analyticsAPIKey = process?.env.JUNO_APIKEY || "";
     if ( !!analyticsAPIKey ) {
       this.analytics = new Analytics(analyticsAPIKey);
     }
