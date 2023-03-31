@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode";
 import { LoginResponse, MyUserInfo } from "lemmy-js-client";
 import { BehaviorSubject, Subject } from "rxjs";
 import { isHttps } from "../env";
-import { Analytics } from "@june-so/analytics-node";
+//import { Analytics } from "@june-so/analytics-node";
 
 interface Claims {
   sub: number;
@@ -23,13 +23,13 @@ export class UserService {
     new BehaviorSubject<number>(0);
   public unreadApplicationCountSub: BehaviorSubject<number> =
     new BehaviorSubject<number>(0);
-  protected analytics: Analytics | undefined;
+  //protected analytics: Analytics;
 
   private constructor() {
-    const analyticsAPIKey = process.env["JUNO_APIKEY"];
+    /*const analyticsAPIKey = process.env["JUNO_APIKEY"];
     if ( !!analyticsAPIKey ) {
       this.analytics = new Analytics(analyticsAPIKey);
-    }
+    }*/
     if (this.auth) {
       this.setClaims(this.auth);
     } else {
@@ -62,22 +62,22 @@ export class UserService {
   }
 
   public trackAnalytics(event: string, properties) {
-    this.analytics?.track({
+    /*this.analytics?.track({
       userId: this.claims.sub,
       event: event,
       properties: properties,
-    });    
+    });*/
   }
 
   private setClaims(jwt: string) {
     this.claims = jwt_decode(jwt);
     this.jwtSub.next(jwt);
-    this.analytics?.identify({
+    /*this.analytics?.identify({
       userId: this.claims.sub,
       traits: {
         email: this.claims.sub
       }
-    });
+    });*/
   }
 
   public static get Instance() {
