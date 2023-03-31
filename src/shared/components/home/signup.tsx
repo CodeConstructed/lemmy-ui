@@ -338,8 +338,12 @@ export class Signup extends Component<any, State> {
         />
         <div class="form-group row">
           <div class="col-sm-10">
-            <button type="submit" class="btn btn-secondary">
-              {this.state.registerLoading ? <Spinner /> : this.titleName}
+            <button type="submit" className="btn btn-secondary">
+              {this.state.registerLoading ? (
+                <Spinner /> 
+              ) : ( 
+                this.titleName
+              )}
             </button>
           </div>
         </div>
@@ -501,7 +505,6 @@ export class Signup extends Component<any, State> {
             })
           );
           this.props.history.push("/communities");
-          location.reload();
         } else {
           if (data.verify_email_sent) {
             toast(i18n.t("verify_email_sent"));
@@ -510,6 +513,7 @@ export class Signup extends Component<any, State> {
             toast(i18n.t("registration_application_sent"));
           }
           this.props.history.push("/");
+          location.reload();
         }
       } else if (op == UserOperation.GetCaptcha) {
         let data = wsJsonToRes<GetCaptchaResponse>(msg).data;
